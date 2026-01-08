@@ -1,4 +1,4 @@
-package dev.nebalus.library.di.annotation;
+package dev.nebalus.library.di.enums;
 
 public enum InjectionScope {
 	/**

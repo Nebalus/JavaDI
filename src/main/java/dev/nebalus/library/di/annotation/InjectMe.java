@@ -1,5 +1,7 @@
 package dev.nebalus.library.di.annotation;
 
+import dev.nebalus.library.di.enums.InjectionScope;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

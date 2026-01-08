@@ -38,11 +38,9 @@ public class FactoryExample {
     static class FactoryModule extends AbstractAmpoule {
         @Override
         public void configure() {
-            // Bind the factory.
-            // Note: In a real implementation, the DI system might auto-discover factories
-            // or we might need to bind the factory output explicitly.
-            // For now, let's bind the object instance manually using the factory.
-            binder().bind(ComplexObject.class).toInstance((ComplexObject) new ComplexObjectFactory().make());
+            // Bind the factory class - it will be instantiated and called every time a
+            // ComplexObject is needed
+            binder().bind(ComplexObject.class).toFactory(ComplexObjectFactory.class);
         }
     }
 

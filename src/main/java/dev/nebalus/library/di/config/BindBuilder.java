@@ -12,4 +12,15 @@ public class BindBuilder<T> {
     public void toInstance(T instance) {
         binder.install(instance, type);
     }
+
+    /**
+     * Binds a factory class that will be instantiated and invoked every time a
+     * value needs to be injected.
+     * This creates a new instance per injection point.
+     *
+     * @param factoryClass the factory class to create instances
+     */
+    public void toFactory(Class<? extends InjectorFactoryInterface> factoryClass) {
+        binder.installFactory(type, factoryClass);
+    }
 }

@@ -4,9 +4,9 @@ import dev.nebalus.library.di.annotation.InjectMe;
 import dev.nebalus.library.di.config.AmpouleInterface;
 import dev.nebalus.library.di.config.Binder;
 import dev.nebalus.library.di.config.AbstractAmpoule;
+import dev.nebalus.library.di.config.InjectorFactoryInterface;
 
 import java.lang.reflect.Field;
-import java.util.Map;
 
 public class DiInjector {
     private final Binder binder;
@@ -22,13 +22,29 @@ public class DiInjector {
             if (module instanceof AbstractAmpoule) {
                 Binder moduleBinder = ((AbstractAmpoule) module).getBinder();
                 moduleBinder.getBindings().forEach(combinedBinder::installUnsafe);
+                // Also merge factory bindings
+                moduleBinder.getFactoryBindings().forEach(combinedBinder::installFactory);
             }
         }
         return new DiInjector(combinedBinder);
     }
 
     public <T> T getInstance(Class<T> type) {
-        // Check if we have a binding
+        // Check if we have a factory binding - creates a new instance every time
+        Class<? extends InjectorFactoryInterface> factoryClass = binder.getFactory(type);
+        if (factoryClass != null) {
+            try {
+                InjectorFactoryInterface factory = factoryClass.getDeclaredConstructor().newInstance();
+                @SuppressWarnings("unchecked")
+                T instance = (T) factory.make();
+                injectMembers(instance);
+                return instance;
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to create instance using factory " + factoryClass.getName(), e);
+            }
+        }
+
+        // Check if we have a singleton binding
         Object bound = binder.get(type);
         if (bound != null) {
             return type.cast(bound);

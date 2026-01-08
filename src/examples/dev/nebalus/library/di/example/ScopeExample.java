@@ -2,7 +2,6 @@ package dev.nebalus.library.di.example;
 
 import dev.nebalus.library.di.DiInjector;
 import dev.nebalus.library.di.annotation.InjectMe;
-import dev.nebalus.library.di.annotation.InjectionScope;
 import dev.nebalus.library.di.config.AbstractAmpoule;
 
 public class ScopeExample {

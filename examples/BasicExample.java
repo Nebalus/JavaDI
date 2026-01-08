@@ -1,5 +1,3 @@
-package dev.nebalus.library.di.example;
-
 import dev.nebalus.library.di.DiInjector;
 import dev.nebalus.library.di.annotation.InjectMe;
 import dev.nebalus.library.di.config.AbstractAmpoule;
@@ -23,7 +21,7 @@ public class BasicExample {
     }
 
     // A concrete implementation
-    static class EnglishGreetingService implements GreetingService {
+    public static class EnglishGreetingService implements GreetingService {
         @Override
         public String greet(String name) {
             return "Hello, " + name + "!";
@@ -31,7 +29,7 @@ public class BasicExample {
     }
 
     // Configuration module
-    static class BasicModule extends AbstractAmpoule {
+    public static class BasicModule extends AbstractAmpoule {
         @Override
         public void configure() {
             // Bind the interface to the implementation
@@ -40,7 +38,7 @@ public class BasicExample {
     }
 
     // The application class that needs dependencies
-    static class App {
+    public static class App {
         @InjectMe
         private GreetingService greetingService;
 

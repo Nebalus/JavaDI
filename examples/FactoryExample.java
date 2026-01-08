@@ -1,5 +1,3 @@
-package dev.nebalus.library.di.example;
-
 import dev.nebalus.library.di.DiInjector;
 import dev.nebalus.library.di.annotation.FactoryConfig;
 import dev.nebalus.library.di.annotation.InjectMe;
@@ -14,7 +12,7 @@ public class FactoryExample {
         service.doWork();
     }
 
-    static class ComplexObject {
+    public static class ComplexObject {
         private final String config;
 
         public ComplexObject(String config) {
@@ -28,14 +26,14 @@ public class FactoryExample {
 
     // Factory to create ComplexObject
     @FactoryConfig(ComplexObject.class)
-    static class ComplexObjectFactory implements InjectorFactoryInterface {
+    public static class ComplexObjectFactory implements InjectorFactoryInterface {
         @Override
         public Object make() {
             return new ComplexObject("Created by Factory");
         }
     }
 
-    static class FactoryModule extends AbstractAmpoule {
+    public static class FactoryModule extends AbstractAmpoule {
         @Override
         public void configure() {
             // Bind the factory class - it will be instantiated and called every time a
@@ -44,7 +42,7 @@ public class FactoryExample {
         }
     }
 
-    static class ComplexService {
+    public static class ComplexService {
         @InjectMe
         private ComplexObject complexObject;
 

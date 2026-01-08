@@ -1,5 +1,3 @@
-package dev.nebalus.library.di.example;
-
 import dev.nebalus.library.di.DiInjector;
 import dev.nebalus.library.di.annotation.InjectMe;
 import dev.nebalus.library.di.config.AbstractAmpoule;
@@ -13,15 +11,15 @@ public class ScopeExample {
         consumer.checkScopes();
     }
 
-    static class SingletonService {
+    public static class SingletonService {
         public double id = Math.random();
     }
 
-    static class PrototypeService {
+    public static class PrototypeService {
         public double id = Math.random();
     }
 
-    static class ScopeModule extends AbstractAmpoule {
+    public static class ScopeModule extends AbstractAmpoule {
         @Override
         public void configure() {
             // Singleton is bound to an instance, so it's always the same
@@ -36,7 +34,7 @@ public class ScopeExample {
         }
     }
 
-    static class ServiceConsumer {
+    public static class ServiceConsumer {
         @InjectMe
         private SingletonService singleton1;
 
